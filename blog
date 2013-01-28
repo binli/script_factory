@@ -1,0 +1,22 @@
+#!/bin/bash
+# blog.sh - used for MarkDown language, generate filename automatcially
+#
+# BinLi (binli at opensuse.org)
+#
+BLOG_DIR=""
+MD_EDITOR=vi
+DATE=`date +%Y-%m-%d`
+
+if [ -z $1 ]; then
+	echo -en "Please input your file's simple title, such as worklog, daily summary, ...\n"
+	read TITLE
+else
+	TITLE=$*
+fi
+
+# Dimiss the blank, and connect with '-'
+TITLE=`echo $TITLE | sed 's/\s\+/-/g'`
+
+MD_FILE=$DATE-$TITLE.md
+
+$MD_EDITOR $BLOG_DIR$MD_FILE
