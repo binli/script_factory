@@ -10,8 +10,8 @@ All script which is used in daily work
        Just link the files in homerc directory to ~/ .
 
 **homerc/alias**
-	Short daily commands
+	Short daily commands   
 **homerc/screenrc**
-	screen's configuration
+	screen's configuration   
 **homerc/tmux.conf**
-	tmux's configuration
+	tmux's configuration   
