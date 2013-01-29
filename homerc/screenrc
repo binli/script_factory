@@ -1,0 +1,12 @@
+startup_message off
+defscrollback 8192
+altscreen on
+caption always "%?%F%{-b 4w}%:%{-b bb}%? %H | %?%F%{-b 4w}%?%L=%-Lw%45>%{-b w4}%n%f* %t%{-}%+Lw%-0< %{y}| %{r}%Y-%m-%d %{g}%c %{y}| %{b}%l %{y}|"
+#caption always '%{= kg}[ %{Y}%H %{g}][ %{W}%-Lw%{= bw}%n%f* %t%{-}%+Lw %=%{g}][ %{m}%l %{g}][%{B}%Y-%m-%d %{W}%c %{g}]'
+
+bindkey "^[o" screen
+bindkey "^[1" select 0
+bindkey "^[2" select 1
+bindkey "^[3" select 2
+bindkey "^[4" select 3
+bindkey "^[5" select 4

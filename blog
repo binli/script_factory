@@ -3,6 +3,8 @@
 #
 # BinLi (binli at opensuse.org)
 #
+
+# You can set the BLOG_DIR to directory which save md files(such as _post directory)
 BLOG_DIR=""
 MD_EDITOR=vi
 DATE=`date +%Y-%m-%d`

@@ -1,0 +1,8 @@
+alias vd='vimdiff'
+alias sc='screen -D -R'
+alias tm='cd /source ; tmux'
+alias ls='ls --color=auto'
+alias l='ls -alF'
+alias e='exit'
+alias s='cd /source'
+alias iosc="osc -A https://api.suse.de"

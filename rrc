@@ -1,0 +1,38 @@
+#!/bin/bash
+# rrc.sh - restore rc files in home
+#
+# BinLi (binli at opensuse.org)
+#
+PWD=`pwd`
+BACKDIR=$PWD/homerc
+HOMEDIR=~/
+i=1 # the resource number
+
+if [ -d $BACKDIR ]; then
+	LIST=`ls $BACKDIR`
+fi
+
+if [ -z $LIST ]; then
+	echo "No files in homerc directory!\n"
+fi
+
+for rcfile in $LIST
+do
+	dotrc=$HOMEDIR.$rcfile
+	echo -e "$i) Restore the $dotrc..."
+	if [ -L $dotrc ]; then
+		echo -e "$dotrc already exist!"
+		echo -e "Do you wanna overwrite it?(y/n)"
+		read OPT
+		if [ $OPT = "y" ]; then 
+			echo -e "Overwrite $dotrc now..."
+			ln -sf $BACKDIR/$rcfile $dotrc
+		else
+			echo -e "Skip $dotrc settting."
+		fi
+	else
+		echo -e "Create $dotrc link now..."
+		ln -s $BACKDIR/$rcfile $dotrc
+	fi
+	let "i+=1"
+done
