@@ -9,9 +9,11 @@ All script which is used in daily work
 **rrc** - Restore rc files into home, it can configure your work environment quickly.
        Just link the files in homerc directory to ~/ .
 
-**homerc/alias**
+**homerc/alias**   
 	Short daily commands   
-**homerc/screenrc**
+
+**homerc/screenrc**   
 	screen's configuration   
-**homerc/tmux.conf**
+
+**homerc/tmux.conf**   
 	tmux's configuration   
