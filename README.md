@@ -17,3 +17,6 @@ All script which is used in daily work
 
 **homerc/tmux.conf**   
 	tmux's configuration   
+
+**homerc/gitconfig**   
+	git's global configuration   

@@ -1,0 +1,7 @@
+[user]
+	name = Bin Li
+	email = binli@opensuse.org
+[alias] 
+	st = status 
+	co = checkout 
+	ci = commit 
