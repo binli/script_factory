@@ -4,6 +4,7 @@
 # BinLi (binli at opensuse.org)
 #
 
+
 # You can set the BLOG_DIR to directory which save md files(such as _post directory)
 BLOG_DIR=""
 MD_EDITOR=vi
@@ -16,9 +17,22 @@ else
 	TITLE=$*
 fi
 
+HEAD="---
+layout: post
+published: true
+category: worklog
+title: $TITLE
+---
+"
+
 # Dimiss the blank, and connect with '-'
 TITLE=`echo $TITLE | sed 's/\s\+/-/g'`
 
 MD_FILE=$DATE-$TITLE.md
+
+if [ ! -e $MD_FILE ]; then
+	touch $MD_FILE
+	echo "$HEAD" >> $MD_FILE
+fi
 
 $MD_EDITOR $BLOG_DIR$MD_FILE
