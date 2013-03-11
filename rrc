@@ -4,12 +4,14 @@
 # BinLi (binli at opensuse.org)
 #
 PWD=`pwd`
-BACKDIR=$PWD/homerc
+RCDIR=$PWD/homerc
+BINDIR=$PWD/bin
 HOMEDIR=~/
+HOMEBINDIR=~/bin
 i=1 # the resource number
 
-if [ -d $BACKDIR ]; then
-	LIST=`ls $BACKDIR`
+if [ -d $RCDIR ]; then
+	LIST=`ls $RCDIR`
 fi
 
 if [ -z $LIST ]; then
@@ -26,13 +28,43 @@ do
 		read OPT
 		if [ $OPT = "y" ]; then 
 			echo -e "Overwrite $dotrc now..."
-			ln -sf $BACKDIR/$rcfile $dotrc
+			ln -sf $RCDIR/$rcfile $dotrc
 		else
 			echo -e "Skip $dotrc settting."
 		fi
 	else
 		echo -e "Create $dotrc link now..."
-		ln -s $BACKDIR/$rcfile $dotrc
+		ln -s $RCDIR/$rcfile $dotrc
+	fi
+	let "i+=1"
+done
+
+# link all the file in bin/ into ~/bin/
+if [ -d $BINDIR ]; then
+	BIN_LIST=`ls $BINDIR`
+fi
+
+if [ -z $BIN_LIST ]; then
+	echo "No files in bin directory!\n"
+fi
+
+for binfile in $BIN_LIST
+do
+	homebin=$HOMEBINDIR/$binfile
+	echo -e "$i) Restore the $binfile..."
+	if [ -L $homebin ]; then
+		echo -e "$homebin already exist!"
+		echo -e "Do you wanna overwrite it?(y/n)"
+		read OPT
+		if [ $OPT = "y" ]; then 
+			echo -e "Overwrite $homebin now..."
+			ln -sf $BINDIR/$binfile $homebin
+		else
+			echo -e "Skip $dotrc settting."
+		fi
+	else
+		echo -e "Create $homebin link now..."
+		ln -s $BINDIR/$binfile $homebin
 	fi
 	let "i+=1"
 done

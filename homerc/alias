@@ -1,6 +1,6 @@
 alias vd='vimdiff'
 alias sc='screen -D -R'
-alias tm='cd /source ; tmux'
+alias tm='tmux'
 alias ls='ls --color=auto'
 alias l='ls -alF'
 alias e='exit'
