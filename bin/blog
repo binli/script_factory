@@ -28,11 +28,11 @@ title: $TITLE
 # Dimiss the blank, and connect with '-'
 TITLE=`echo $TITLE | sed 's/\s\+/-/g'`
 
-MD_FILE=$DATE-$TITLE.md
+MD_FILE=$BLOG_DIR/$DATE-$TITLE.md
 
 if [ ! -e $MD_FILE ]; then
 	touch $MD_FILE
 	echo "$HEAD" >> $MD_FILE
 fi
 
-$MD_EDITOR $BLOG_DIR$MD_FILE
+$MD_EDITOR $MD_FILE

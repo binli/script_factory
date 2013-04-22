@@ -22,7 +22,7 @@ for rcfile in $LIST
 do
 	dotrc=$HOMEDIR.$rcfile
 	echo -e "$i) Restore the $dotrc..."
-	if [ -L $dotrc ]; then
+	if [ -L $dotrc -o -e $dotrc ]; then
 		echo -e "$dotrc already exist!"
 		echo -e "Do you wanna overwrite it?(y/n)"
 		read OPT
@@ -68,3 +68,12 @@ do
 	fi
 	let "i+=1"
 done
+
+# Merge the bashrc into .bashrc, include PATH and PS1
+if [ -e $HOMEDIR.bashrc ]; then
+	echo -e "Merge the bashrc..."
+	grep "export PATH" $HOMEDIR.bashrc || cat $RCDIR/bashrc >> $HOMEDIR.bashrc
+else
+	echo -e "Link the bashrc..."
+	ln -s $RCDIR/bashrc $HOMEDIR.bashrc
+fi
