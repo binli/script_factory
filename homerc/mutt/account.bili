@@ -1,0 +1,8 @@
+set mbox_type   = Maildir
+set from='BinLi <bili@suse.com>'
+set hostname="suse.com"
+set folder = "/work/mail/bili"
+set spoolfile = "/work/mail/bili/INBOX"
+set record ='/work/mail/bili/Sent Items/'
+set postponed="=Drafts"
+set signature="~/.mutt/signature.bili"

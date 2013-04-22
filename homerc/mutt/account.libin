@@ -1,0 +1,8 @@
+set mbox_type   = Maildir
+set from="BinLi <libin.charles@gmail.com>"
+set hostname="gmail.com"
+set folder="/work/mail/libin"
+set spoolfile="/work/mail/libin/INBOX"
+set record ='/work/mail/libin/[Gmail].Sent Mail/'
+set postponed="=Drafts"
+set signature="~/.mutt/signature.libin"

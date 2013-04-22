@@ -1,0 +1,53 @@
+# Number of quick-syncs between autorefreshes. Quick-syncs do not update if the
+# only changes were to IMAP flags
+[general]
+accounts = bili, libin
+quick = 10
+ui = ttyui
+maxsyncaccounts = 4
+
+# bili at suse dot com
+[Account bili]
+localrepository = bili_local
+remoterepository = bili_remote
+autorefresh = 10
+
+[Repository bili_local]
+type = Maildir
+localfolders = /work/mail/bili/
+keepalive = 120
+
+[Repository bili_remote]
+type = IMAP
+remotehost = imap.novell.com
+remoteport = 143
+remoteuser = bili@novell.com
+remotepassfile = /work/mail/bili.pass
+
+# libin dot charles at gmail
+[Account libin]
+localrepository = libin_local
+remoterepository = libin_remote
+autorefresh = 15
+
+[Repository libin_local]
+type = Maildir
+localfolders = /work/mail/libin/
+keepalive = 120
+
+[Repository libin_remote]
+type = Gmail
+realdelete = yes
+remoteuser = libin.charles@gmail.com
+remotepassfile = /work/mail/libin.pass
+
+# This translates folder names such that everything (including your Inbox)
+# appears in the same folder (named root).
+#nametrans = lambda folder: re.sub('\s+', '', re.sub('(.+)(\\.)(.+)', '\\1_\\3', re.sub('(^.{1})', '.\\1', re.sub('.*Trash$', 'Trash', re.sub('.*Drafts$', 'Drafts', re.sub('.*Sent Mail$', 'Sent', re.sub('.*Starred$', 'Starred', re.sub('.*All Mail$', 'Archive', re.sub('^(INBOX)', ' ', folder)))))))))
+
+# This excludes some folders from being synced. You will almost
+# certainly want to exclude 'All Mail', 'Trash', and 'Starred', at
+# least. Note that offlineimap does NOT honor subscription details.
+#folderfilter = lambda foldername: foldername not in ['[Gmail]/Starred', '[Gmail]/Important', '[Gmail]/All Mail'] 
+#folderfilter = lambda foldername: foldername in ['INBOX', 'networkmanager', 'gnome-cn', 'gnome-bug', 'fedora', 'gnome-foundation', 'Notes'] 
+folderfilter = lambda foldername: foldername in ['INBOX','gnome-cn','gnome-bug','networkmanager','[Gmail].Sent Mail','[Gmail].Drafts']
