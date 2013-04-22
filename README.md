@@ -20,3 +20,6 @@ All script which is used in daily work
 
 **homerc/gitconfig**   
 	git's global configuration   
+
+**homerc/mutt/**
+	The mutt's configuration for multi-accounts.
