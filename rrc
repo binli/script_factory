@@ -14,10 +14,6 @@ if [ -d $RCDIR ]; then
 	LIST=`ls $RCDIR`
 fi
 
-if [ -z $LIST ]; then
-	echo "No files in homerc directory!\n"
-fi
-
 for rcfile in $LIST
 do
 	dotrc=$HOMEDIR.$rcfile
@@ -44,8 +40,9 @@ if [ -d $BINDIR ]; then
 	BIN_LIST=`ls $BINDIR`
 fi
 
-if [ -z $BIN_LIST ]; then
-	echo "No files in bin directory!\n"
+# the $HOME/bin not exist in ubuntu, so need to create a new one
+if [ ! -d $HOMEBINDIR ]; then
+	mkdir $HOMEBINDIR
 fi
 
 for binfile in $BIN_LIST
@@ -60,7 +57,7 @@ do
 			echo -e "Overwrite $homebin now..."
 			ln -sf $BINDIR/$binfile $homebin
 		else
-			echo -e "Skip $dotrc settting."
+			echo -e "Skip $homebin settting."
 		fi
 	else
 		echo -e "Create $homebin link now..."
@@ -68,6 +65,14 @@ do
 	fi
 	let "i+=1"
 done
+
+ISSUE=`cat /etc/issue | awk '{print $1}'`
+
+# if we use Ubuntu, skip some operation.
+if [ $ISSUE = "Ubuntu" ]; then
+	echo "Bye! Welcome use rrc in Ubuntu"
+	exit 0;
+fi
 
 # Merge the bashrc into .bashrc, include PATH and PS1
 if [ -e $HOMEDIR.bashrc ]; then
@@ -77,3 +82,5 @@ else
 	echo -e "Link the bashrc..."
 	ln -s $RCDIR/bashrc $HOMEDIR.bashrc
 fi
+
+echo "Bye! Welcome use rrc in openSUSE"

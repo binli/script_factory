@@ -1,0 +1,13 @@
+#!/bin/bash
+
+KEY=YOUID
+
+[ -f ~/.oathcounter ] || echo 1 > ~/.oathcounter
+
+while read line
+do
+        value=`expr $line + 1`;
+        oathtool -c $value --hotp $KEY
+done < ~/.oathcounter
+
+echo $value > ~/.oathcounter

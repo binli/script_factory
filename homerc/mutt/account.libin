@@ -6,3 +6,8 @@ set spoolfile="/work/mail/libin/INBOX"
 set record ='/work/mail/libin/[Gmail].Sent Mail/'
 set postponed="=Drafts"
 set signature="~/.mutt/signature.libin"
+
+# empty the mailbox which from another one
+unmailboxes *
+# mailboxes
+mailboxes +INBOX +gnome-cn +gnome-bug +networkmanager

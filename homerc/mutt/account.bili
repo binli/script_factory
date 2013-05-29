@@ -6,3 +6,8 @@ set spoolfile = "/work/mail/bili/INBOX"
 set record ='/work/mail/bili/Sent Items/'
 set postponed="=Drafts"
 set signature="~/.mutt/signature.bili"
+
+# empty the mailbox which from another one
+unmailboxes *
+# mailboxes
+mailboxes +INBOX +bugzilla_noreply +L3 +research-devel

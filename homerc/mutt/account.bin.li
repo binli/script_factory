@@ -1,0 +1,13 @@
+set mbox_type   = Maildir
+set from="BinLi <bin.li@canonical.com>"
+set hostname="gmail.com"
+set folder="/work/mail/bin.li"
+set spoolfile="/work/mail/bin.li/INBOX"
+set record ='/work/mail/bin.li/[Gmail].Sent Mail/'
+set postponed="=Drafts"
+set signature="~/.mutt/signature.bin.li"
+
+# empty the mailbox which from another one
+unmailboxes *
+# mailboxes
+mailboxes +INBOX

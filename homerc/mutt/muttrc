@@ -3,9 +3,24 @@ set sort=threads # 新的在最上面，按thread归档
 set strict_threads="yes"
 set sort_browser="reverse-date"
 set sort_aux="reverse-last-date-received" # 收到新邮件的thread在最上面
-set query_command="lbdbq '%s'"
-set index_format="%4C %3E %Z %{%b %d} %-18.18F %-20.20L %s"
+
 unset mark_old # read/new is good enough for me
+# Cancel a message when subject is blank
+set abort_nosubject=yes
+
+#set query_command="lbdbq '%s'"
+set query_command="abook --mutt-query '%s'"
+macro index a     "|abook --add-email\n" 'add sender to abook'
+macro pager a     "|abook --add-email\n" 'add sender to abook'
+
+#set index_format="%4C %3E %Z %{%b %d} %-18.18F %-20.20L %s"
+set index_format="%4C %3E %Z %{%b %d} %-20.20L %s"
+
+# Collapse old messages
+set collapse_unread=no
+folder-hook . 'push <collapse-all>'
+
+source ~/.mutt/gpg.rc                           # Use GPG
 
 # options
 set editor="vim"
@@ -19,15 +34,19 @@ set sendmail    = /usr/bin/msmtp
 # 当你改变目录时，会自动设置相应的帐号
 folder-hook 'bili' 'source ~/.mutt/account.bili'
 folder-hook 'libin' 'source ~/.mutt/account.libin'
+folder-hook 'bin.li' 'source ~/.mutt/account.bin.li'
 
 macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/account.bili<enter><change-folder>!<enter>'
 macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/account.libin<enter><change-folder>!<enter>'
+macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/account.bin.li<enter><change-folder>!<enter>'
 
 # switch to default account on startup
 source ~/.mutt/account.bili
 
-# mailboxes
-mailboxes +INBOX +bugzilla_noreply +L3
+
+#set index_format="%4C %4e %Z %?M?%-22.22n (%M)&%-26.26n? >> %?y?[%Y] %s&%s? %> %?X?/& ? %{%b%d}"
+# the default format
+#set index_format=“%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s”
 
 # 每行设置一项，两个颜色分别是前景色和背景色
 color normal     white        default

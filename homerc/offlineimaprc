@@ -1,10 +1,29 @@
 # Number of quick-syncs between autorefreshes. Quick-syncs do not update if the
 # only changes were to IMAP flags
 [general]
-accounts = bili, libin
+accounts = bin.li, bili, libin
 quick = 10
 ui = ttyui
-maxsyncaccounts = 4
+maxsyncaccounts = 6
+
+# bili at suse dot com
+[Account bin.li]
+localrepository = binli_local
+remoterepository = binli_remote
+autorefresh = 10
+
+[Repository binli_local]
+type = Maildir
+localfolders = /work/mail/bin.li/
+keepalive = 120
+
+[Repository binli_remote]
+type = Gmail
+realdelete = yes
+remoteuser = bin.li@canonical.com
+remotepassfile = /work/mail/bin.li.pass
+folderfilter = lambda foldername: foldername in ['INBOX','[Gmail]/Sent Mail','[Gmail]/Drafts']
+cert_fingerprint = b0ba392bba326e6feb1add4d04fa0fb86cd173fa
 
 # bili at suse dot com
 [Account bili]
@@ -28,7 +47,7 @@ remotepassfile = /work/mail/bili.pass
 [Account libin]
 localrepository = libin_local
 remoterepository = libin_remote
-autorefresh = 15
+autorefresh = 5
 
 [Repository libin_local]
 type = Maildir
@@ -40,6 +59,7 @@ type = Gmail
 realdelete = yes
 remoteuser = libin.charles@gmail.com
 remotepassfile = /work/mail/libin.pass
+cert_fingerprint = b0ba392bba326e6feb1add4d04fa0fb86cd173fa
 
 # This translates folder names such that everything (including your Inbox)
 # appears in the same folder (named root).
@@ -50,4 +70,4 @@ remotepassfile = /work/mail/libin.pass
 # least. Note that offlineimap does NOT honor subscription details.
 #folderfilter = lambda foldername: foldername not in ['[Gmail]/Starred', '[Gmail]/Important', '[Gmail]/All Mail'] 
 #folderfilter = lambda foldername: foldername in ['INBOX', 'networkmanager', 'gnome-cn', 'gnome-bug', 'fedora', 'gnome-foundation', 'Notes'] 
-folderfilter = lambda foldername: foldername in ['INBOX','gnome-cn','gnome-bug','networkmanager','[Gmail].Sent Mail','[Gmail].Drafts']
+folderfilter = lambda foldername: foldername in ['INBOX','gnome-cn','gnome-bug','networkmanager','[Gmail]/Sent Mail','[Gmail]/Drafts']
