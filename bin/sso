@@ -1,7 +1,14 @@
 #!/bin/bash
+# sso - Ubuntu Single Sign On(sso)
+#
+# Bin Li, and thanks for Adam Li provide the origin one for me
+# Depends: oathtool
 
-KEY=YOUID
-
+# In login.ubuntu.com, "Authentication Devices" -> "Generic HOTP device"
+# Any other OATH/HOTP compatible device
+# Copy the "Shared OATH/HOTP key" in to KEY without blank space
+#KEY="CE1E580D4103C9378D415AAA73D378EF1130E351" 
+KEY="" 
 [ -f ~/.oathcounter ] || echo 1 > ~/.oathcounter
 
 while read line
