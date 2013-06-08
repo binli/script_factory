@@ -1,7 +1,7 @@
 # Number of quick-syncs between autorefreshes. Quick-syncs do not update if the
 # only changes were to IMAP flags
 [general]
-accounts = bin.li, bili, libin
+accounts = bin.li, libin
 quick = 10
 ui = ttyui
 maxsyncaccounts = 6
@@ -22,7 +22,7 @@ type = Gmail
 realdelete = yes
 remoteuser = bin.li@canonical.com
 remotepassfile = /work/mail/bin.li.pass
-folderfilter = lambda foldername: foldername in ['INBOX','[Gmail]/Sent Mail','[Gmail]/Drafts']
+folderfilter = lambda foldername: foldername in ['INBOX','sutton-2013-osp1','china-oem-group','canonical-tech','[Gmail]/Sent Mail','[Gmail]/Drafts','[Gmail]/Trash']
 cert_fingerprint = b0ba392bba326e6feb1add4d04fa0fb86cd173fa
 
 # bili at suse dot com
@@ -70,4 +70,4 @@ cert_fingerprint = b0ba392bba326e6feb1add4d04fa0fb86cd173fa
 # least. Note that offlineimap does NOT honor subscription details.
 #folderfilter = lambda foldername: foldername not in ['[Gmail]/Starred', '[Gmail]/Important', '[Gmail]/All Mail'] 
 #folderfilter = lambda foldername: foldername in ['INBOX', 'networkmanager', 'gnome-cn', 'gnome-bug', 'fedora', 'gnome-foundation', 'Notes'] 
-folderfilter = lambda foldername: foldername in ['INBOX','gnome-cn','gnome-bug','networkmanager','[Gmail]/Sent Mail','[Gmail]/Drafts']
+folderfilter = lambda foldername: foldername in ['INBOX','gnome-cn','gnome-bug','networkmanager','[Gmail]/Sent Mail','[Gmail]/Drafts','[Gmail]/Trash']
