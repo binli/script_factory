@@ -12,6 +12,9 @@ All script which is used in daily work
 **bin/sso** - Ubuntu Single Sign On
         Generate an id for second auth, install oathtool first.
 
+**bin/tm** - Start Tmux with mutt and weechat.
+        A quick way to call tmux, and start the mutt and weechat automatically.
+
 **homerc/alias**   
 	Short daily commands   
 

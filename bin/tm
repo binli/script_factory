@@ -1,0 +1,16 @@
+#!/bin/bash
+# tm - quick start tmux with mutt and weechat quickly
+#
+# Bin Li
+
+session_name="binli"
+
+# when new-session it'll create a new-window 0
+tmux new-session -d -s $session_name weechat-curses
+tmux new-window -t $session_name:1 -n mails mutt
+tmux new-window -t $session_name:2 -n source
+tmux new-window -t $session_name:3 -n work
+
+tmux select-window -t $session_name:1
+
+tmux attach-session -t $session_name

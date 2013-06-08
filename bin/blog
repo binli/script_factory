@@ -6,9 +6,10 @@
 
 
 # You can set the BLOG_DIR to directory which save md files(such as _post directory)
-BLOG_DIR=""
+BLOG_DIR="/source/gits/binli.github.com/_posts"
 MD_EDITOR=vi
 DATE=`date +%Y-%m-%d`
+TIME=`date +%Y-%m-%d\ %H:%M`
 
 if [ -z $1 ]; then
 	echo -en "Please input your file's simple title, such as worklog, daily summary, ...\n"
@@ -22,6 +23,7 @@ layout: post
 published: true
 category: worklog
 title: $TITLE
+date: $TIME
 ---
 "
 
