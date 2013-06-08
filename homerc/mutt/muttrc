@@ -4,14 +4,24 @@ set strict_threads="yes"
 set sort_browser="reverse-date"
 set sort_aux="reverse-last-date-received" # 收到新邮件的thread在最上面
 
+set pager_stop="yes"
+set pager_index_lines=8
+set header=no
+# save the address to alias, and source it
+set alias_file=~/.mutt.alias
+source ~/.mutt.alias
+set alias_format="%4n %2f %t %-30a   %r"
+
 unset mark_old # read/new is good enough for me
 # Cancel a message when subject is blank
 set abort_nosubject=yes
 
 #set query_command="lbdbq '%s'"
-set query_command="abook --mutt-query '%s'"
-macro index a     "|abook --add-email\n" 'add sender to abook'
-macro pager a     "|abook --add-email\n" 'add sender to abook'
+#set query_command="abook --mutt-query '%s'"
+#macro index a     "|abook --add-email\n" 'add sender to abook'
+#macro pager a     "|abook --add-email\n" 'add sender to abook'
+
+auto_view text/html
 
 #set index_format="%4C %3E %Z %{%b %d} %-18.18F %-20.20L %s"
 set index_format="%4C %3E %Z %{%b %d} %-20.20L %s"
@@ -41,7 +51,7 @@ macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/account.libin<ente
 macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/account.bin.li<enter><change-folder>!<enter>'
 
 # switch to default account on startup
-source ~/.mutt/account.bili
+source ~/.mutt/account.bin.li
 
 
 #set index_format="%4C %4e %Z %?M?%-22.22n (%M)&%-26.26n? >> %?y?[%Y] %s&%s? %> %?X?/& ? %{%b%d}"
