@@ -1,11 +1,10 @@
 alias vd='vimdiff'
 alias sc='screen -D -R'
-alias tm='tmux'
 alias l='ls -alF'
 alias e='exit'
 alias s='cd /source'
 alias gr="gnome-shell --replace"
-alias agi='apt-get install'
+alias agi='sudo apt-get install'
 alias acs='apt-cache search'
 
 #below is in openSUSE
