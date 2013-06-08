@@ -6,8 +6,10 @@ set spoolfile="/work/mail/bin.li/INBOX"
 set record ='/work/mail/bin.li/[Gmail].Sent Mail/'
 set postponed="=Drafts"
 set signature="~/.mutt/signature.bin.li"
+set trash="=[Gmail].Trash"
 
 # empty the mailbox which from another one
 unmailboxes *
 # mailboxes
-mailboxes +INBOX
+mailboxes +INBOX +canonical-tech +china-oem-group +sutton-2013-osp1
+
