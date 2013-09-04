@@ -7,9 +7,11 @@
 # In login.ubuntu.com, "Authentication Devices" -> "Generic HOTP device"
 # Any other OATH/HOTP compatible device
 # Copy the "Shared OATH/HOTP key" in to KEY without blank space
-#KEY="CE1E580D4103C9378D415AAA73D378EF1130E351" 
+#KEY="CE1E580D4103C9378D415AAA73DD78EF1130E351" 
 KEY="" 
 [ -f ~/.oathcounter ] || echo 1 > ~/.oathcounter
+
+[ -f /usr/bin/oathtool ] || sudo apt-get install oathtool
 
 while read line
 do
