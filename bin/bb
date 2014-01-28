@@ -1,0 +1,31 @@
+#!/bin/bash
+#  bb - simple for 'bzr branch'
+#
+# In normal, you used below line
+#     bzr branch lp:~oem-solutions-group/stacy/volatile-task oem-solutions-group/stacy/volatile-task
+# Now
+#     bb lp:~oem-solutions-group/stacy/volatile-task
+# or
+#     bb oem-solutions-group/stacy/volatile-task
+# 
+# Bin Li (bin.li@canonical.com)
+
+if [ -z $1 ] ; then
+	echo "Please use project path as parameter"
+fi
+
+project=$1
+if [ ${project:0:4} = "lp:~" ]; then
+	project=$1
+	project_dir=${project:4}
+else
+	project_dir="${project}"
+	project="lp:~"$project
+fi
+
+cd /source/lp/
+
+echo "bzr branch ${project} ${project_dir}"
+bzr branch $project $project_dir
+
+cd $project_dir
