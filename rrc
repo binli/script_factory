@@ -8,11 +8,19 @@ RCDIR=$PWD/homerc
 BINDIR=$PWD/bin
 HOMEDIR=~/
 HOMEBINDIR=~/bin
+PREREQ="git quilt vim screen tmux weechat sox openssh-server python-pip devscipts dia dput bzr lm-sensors fcitx-table-wubi"
 i=1 # the resource number
 
 if [ -d $RCDIR ]; then
 	LIST=`ls $RCDIR`
 fi
+
+sudo apt-get update
+for package in $PREREQ
+do
+	echo "apt-get install -y --force-yes $package"
+	sudo apt-get install -y --force-yes $package
+done
 
 for rcfile in $LIST
 do
@@ -71,6 +79,11 @@ ISSUE=`cat /etc/issue | awk '{print $1}'`
 # if we use Ubuntu, skip some operation.
 if [ $ISSUE = "Ubuntu" ]; then
 	echo "Bye! Welcome use rrc in Ubuntu"
+	exit 0;
+fi
+
+if [ $ISSUE = "Debian" ]; then
+	echo "Bye! Welcome use rrc in Debian"
 	exit 0;
 fi
 
