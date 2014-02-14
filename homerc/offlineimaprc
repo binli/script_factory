@@ -10,7 +10,7 @@ maxsyncaccounts = 6
 [Account bin.li]
 localrepository = binli_local
 remoterepository = binli_remote
-autorefresh = 10
+autorefresh = 10 
 
 [Repository binli_local]
 type = Maildir
@@ -22,7 +22,7 @@ type = Gmail
 realdelete = yes
 remoteuser = bin.li@canonical.com
 remotepassfile = /work/mail/bin.li.pass
-folderfilter = lambda foldername: foldername in ['INBOX','sutton-2013-osp1','china-oem-group','canonical-tech','[Gmail]/Sent Mail','[Gmail]/Drafts','[Gmail]/Trash']
+folderfilter = lambda foldername: foldername in ['INBOX','sutton-2013-osp1','china-oem-group','launchpad-ppa', 'canonical-tech','ubuntu-devel','watauga-bugs','watauga','[Gmail]/Sent Mail','[Gmail]/Drafts','[Gmail]/Trash']
 cert_fingerprint = b0ba392bba326e6feb1add4d04fa0fb86cd173fa
 
 # bili at suse dot com
@@ -47,7 +47,7 @@ remotepassfile = /work/mail/bili.pass
 [Account libin]
 localrepository = libin_local
 remoterepository = libin_remote
-autorefresh = 5
+autorefresh = 10
 
 [Repository libin_local]
 type = Maildir
