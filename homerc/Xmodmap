@@ -1,0 +1,3 @@
+remove Lock = Caps_Lock
+keycode 66 = Super_L
+add Mod4 = Caps_Lock
