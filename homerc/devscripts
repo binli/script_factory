@@ -1,0 +1,2 @@
+# don't add nmu1, just increase the number
+DEBCHANGE_AUTO_NMU=no
