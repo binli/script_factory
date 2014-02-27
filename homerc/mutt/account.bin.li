@@ -11,5 +11,4 @@ set trash="=[Gmail].Trash"
 # empty the mailbox which from another one
 unmailboxes *
 # mailboxes
-mailboxes +INBOX +canonical-tech +china-oem-group +sutton-2013-osp1
-
+mailboxes +INBOX +canonical-tech +china-oem-group +sutton-2013-osp1 +launchpad-ppa +ubuntu-devel +watauga +watauga-bugs
