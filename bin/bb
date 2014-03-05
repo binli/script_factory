@@ -23,9 +23,5 @@ else
 	project="lp:~"$project
 fi
 
-cd /source/lp/
-
 echo "bzr branch ${project} ${project_dir}"
 bzr branch $project $project_dir
-
-cd $project_dir
