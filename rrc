@@ -8,7 +8,7 @@ RCDIR=$PWD/homerc
 BINDIR=$PWD/bin
 HOMEDIR=~/
 HOMEBINDIR=~/bin
-PREREQ="git quilt vim screen tmux weechat sox openssh-server python-pip devscipts dia dput bzr lm-sensors fcitx-table-wubi"
+PREREQ=`cat debian.package.list`
 i=1 # the resource number
 
 if [ -d $RCDIR ]; then
@@ -42,6 +42,12 @@ do
 	fi
 	let "i+=1"
 done
+
+VIM_PLUGIN=$RCDIR/vim/plugin
+mkdir -p $VIM_PLUGIN
+wget http://www.vim.org/scripts/download_script.php?src_id=16171 -O $VIM_PLUGIN/DirDiff.vim
+
+# for msmtprc we need remove group and other read permission.
 
 # link all the file in bin/ into ~/bin/
 if [ -d $BINDIR ]; then
