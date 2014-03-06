@@ -14,3 +14,4 @@ alias ...='cd ../..'
 alias cd..='cd ..'
 alias md='mkdir -p'
 alias rd='rmdir'
+alias giso="oem-getiso --method=zsync --auth_token=\`get-oemshare-auth-token\`"
