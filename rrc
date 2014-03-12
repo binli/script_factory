@@ -46,6 +46,7 @@ done
 VIM_PLUGIN=$RCDIR/vim/plugin
 mkdir -p $VIM_PLUGIN
 wget http://www.vim.org/scripts/download_script.php?src_id=16171 -O $VIM_PLUGIN/DirDiff.vim
+wget http://www.vim.org/scripts/download_script.php?src_id=171 -O $VIM_PLUGIN/cscope_macros.vim
 
 # for msmtprc we need remove group and other read permission.
 

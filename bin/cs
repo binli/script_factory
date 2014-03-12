@@ -1,0 +1,5 @@
+#!/bin/bash
+
+find . -path "./.*" -prune -o -name "*.h" -print -o -name "*.c" -print -o -name "*.cc" -print > cscope.files
+cscope -bkq -i cscope.files
+ctags -R

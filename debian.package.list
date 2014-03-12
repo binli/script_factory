@@ -18,3 +18,5 @@ offlineimap
 msmtp
 fonts-wqy-microhei
 pbuilder
+cscope
+ctags
