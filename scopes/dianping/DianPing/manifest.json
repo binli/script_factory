@@ -1,0 +1,15 @@
+{
+    "name": "com.ubuntu.developer.binli.dianping",
+    "description": "description of DianPing",
+    "framework": "ubuntu-sdk-14.04-qml-dev1",
+    "architecture": "all",
+    "title": "DianPing",
+    "hooks": {
+        "DianPing": {
+            "apparmor": "DianPing.json",
+            "desktop": "DianPing.desktop"
+        }
+    },
+    "version": "0.1",
+    "maintainer": "Bin Li <bin.li@canonical.com>"
+}

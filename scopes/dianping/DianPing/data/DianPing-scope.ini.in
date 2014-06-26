@@ -1,0 +1,8 @@
+[ScopeConfig]
+DisplayName = Dianping Scope
+Description = This is a Dianping scope
+Author = Firstname Lastname
+Art = DianPingscope.Art
+Icon = DianPingscope.Icon
+SearchHint = DianPingscope.SearchHint
+HotKey = DianPingscope.HotKey
