@@ -6,6 +6,7 @@
 #include <unity/scopes/ReplyProxyFwd.h>
 #include <unity/scopes/QueryBase.h>
 #include <unity/scopes/PreviewQueryBase.h>
+#include <QCoreApplication>
 
 class DianpingScope : public unity::scopes::ScopeBase
 {
@@ -19,6 +20,10 @@ public:
 
     virtual unity::scopes::SearchQueryBase::UPtr search(unity::scopes::CannedQuery const& q,
                                                         unity::scopes::SearchMetadata const&) override;
+
+    void run() override;
+private:
+    QCoreApplication *app;
 };
 
 #endif

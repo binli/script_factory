@@ -12,6 +12,14 @@ int DianpingScope::start(std::string const&, unity::scopes::RegistryProxy const&
 
 void DianpingScope::stop()
 {
+    delete app;
+}
+
+void DianpingScope::run()
+{
+    // an instance of QApplication is needed to make Qt happy
+    int zero = 0;
+    app = new QCoreApplication(zero, nullptr);
 }
 
 SearchQueryBase::UPtr DianpingScope::search(unity::scopes::CannedQuery const &q,

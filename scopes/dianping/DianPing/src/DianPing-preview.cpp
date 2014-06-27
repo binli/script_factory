@@ -3,6 +3,7 @@
 #include<unity/scopes/PreviewWidget.h>
 #include<unity/scopes/ColumnLayout.h>
 #include<unity/scopes/PreviewReply.h>
+#include <unity/scopes/VariantBuilder.h>
 
 using namespace unity::scopes;
 
@@ -20,29 +21,54 @@ void DianpingPreview::cancelled()
 
 void DianpingPreview::run(unity::scopes::PreviewReplyProxy const& reply)
 {
-    PreviewWidgetList widgets;
-    widgets.emplace_back(PreviewWidget(R"({"id": "header", "type": "header", "title": "title", "subtitle": "author", "rating": "rating"})"));
-    widgets.emplace_back(PreviewWidget(R"({"id": "img", "type": "image", "art": "screenshot-url"})"));
+    // Client can display Previews differently depending on the context
+    // By creates two layouts (one with one column, one with two) and then
+    // adding widgets to them differently, Unity can pick the layout the
+    // scope developer thinks is best for the mode
+    ColumnLayout layout1col(1), layout2col(2);
 
-    PreviewWidget w("img2", "image");
-    w.add_attribute_value("zoomable", Variant(false));
-    w.add_attribute_mapping("art", "screenshot-url");
-    widgets.emplace_back(w);
+    // add columns and widgets (by id) to layouts.
+    // The single column layout gets one column and all widets
+    layout1col.add_column({"headerId", "artId", "infoId", "actionsId"});
+    // The two column layout gets two columns.
+    // The first column gets the art and header widgets (by id)
+    layout2col.add_column({"artId", "headerId"});
+    // The second column gets the info and actions widgets
+    layout2col.add_column({"infoId", "actionsId"});
 
-    ColumnLayout layout1col(1);
-    layout1col.add_column({"header", "title"});
+    // Push the layouts into the PreviewReplyProxy intance, thus making them
+    // available for use in Preview diplay
+    reply->register_layout({layout1col, layout2col});
 
-    ColumnLayout layout2col(2);
-    layout2col.add_column({"header", "title"});
-    layout2col.add_column({"author", "rating"});
+    //Create some widgets
+    // header type first. note 'headerId' used in layouts
+    // second field ('header) is a standard preview widget type
+    PreviewWidget w_header("headerId", "header");
+    // This maps the title field of the header widget (first param)  to the
+    // title field in the result to be displayed in this preview, thus providing
+    // the result-specific data to the preview for display
+    w_header.add_attribute_mapping("title", "title");
+    // Standard subtitle field here gets our 'artist' key value
+    w_header.add_attribute_mapping("subtitle", "artist");
 
-    ColumnLayout layout3col(3);
-    layout3col.add_column({"header", "title"});
-    layout3col.add_column({"author"});
-    layout3col.add_column({"rating"});
+    PreviewWidget w_art("artId", "image");
+    w_art.add_attribute_mapping("source", "art");
 
-    reply->register_layout({layout1col, layout2col, layout3col});
+    PreviewWidget w_info("infoId", "text");
+    w_info.add_attribute_mapping("text", "description");
+
+    // Create an Open button and provide the URI to open for this preview result
+    PreviewWidget w_actions("actionsId", "actions");
+    VariantBuilder builder;
+    builder.add_tuple({
+            {"id", Variant("open")},
+            {"label", Variant("Open")},
+            {"uri", Variant(uri_)} // uri set, this action will be handled by the Dash
+        });
+    w_actions.add_attribute_value("actions", builder.end());
+
+    // Bundle out widgets as required into a PreviewWidgetList
+    PreviewWidgetList widgets({w_header, w_art, w_info, w_actions});
+    // And push them to the PreviewReplyProxy as needed for use in the preview
     reply->push(widgets);
-    reply->push("author", Variant("Foo"));
-    reply->push("rating", Variant("4 blah"));
 }

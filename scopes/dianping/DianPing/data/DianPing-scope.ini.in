@@ -1,7 +1,7 @@
 [ScopeConfig]
 DisplayName = Dianping Scope
-Description = This is a Dianping scope
-Author = Firstname Lastname
+Description = Recommen top 10 or top 20 good resturants in DianPing
+Author = Canonical Ltd.
 Art = DianPingscope.Art
 Icon = DianPingscope.Icon
 SearchHint = DianPingscope.SearchHint
