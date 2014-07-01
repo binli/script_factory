@@ -8,19 +8,25 @@ RCDIR=$PWD/homerc
 BINDIR=$PWD/bin
 HOMEDIR=~/
 HOMEBINDIR=~/bin
-PREREQ=`cat debian.package.list`
+NECESSARY=`cat necessary.list`
+DEVELOP=`cat develop.list`
+OPTIONAL=`cat optional.list`
 i=1 # the resource number
 
 if [ -d $RCDIR ]; then
 	LIST=`ls $RCDIR`
 fi
 
-sudo apt-get update
-for package in $PREREQ
+for p in $DEVELOP $NECESSARY $OPTIONAL 
 do
+	package="$package $p"
+done
+echo $package
+if [ "x$package" != "x" ] ; then
+	sudo apt-get update
 	echo "apt-get install -y --force-yes $package"
 	sudo apt-get install -y --force-yes $package
-done
+fi
 
 VIM_PLUGIN=$RCDIR/vim/plugin
 mkdir -p $VIM_PLUGIN
@@ -37,6 +43,7 @@ do
 		read OPT
 		if [ $OPT = "y" ]; then 
 			echo -e "Overwrite $dotrc now..."
+			rm -rfi $dotrc
 			ln -sf $RCDIR/$rcfile $dotrc
 		else
 			echo -e "Skip $dotrc settting."
