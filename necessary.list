@@ -2,7 +2,6 @@ git
 quilt
 vim
 cscope
-ctags
 screen
 tmux
 openssh-server
