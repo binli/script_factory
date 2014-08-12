@@ -22,7 +22,7 @@ type = Gmail
 realdelete = yes
 remoteuser = bin.li@canonical.com
 remotepassfile = /work/mail/bin.li.pass
-folderfilter = lambda foldername: foldername in ['INBOX','sutton-2013-osp1','china-oem-group','launchpad-ppa', 'canonical-tech','ubuntu-devel','watauga-bugs','watauga','[Gmail]/Sent Mail','[Gmail]/Drafts','[Gmail]/Trash']
+folderfilter = lambda foldername: foldername in ['INBOX','sutton-2013-osp1','china-oem-group','launchpad-ppa', 'canonical-tech','ubuntu-devel','watauga-bugs','watauga','kittyhawk-bugs','[Gmail]/Sent Mail','[Gmail]/Drafts','[Gmail]/Trash']
 cert_fingerprint = b0ba392bba326e6feb1add4d04fa0fb86cd173fa
 
 # bili at suse dot com
