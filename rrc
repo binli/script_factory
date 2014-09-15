@@ -11,13 +11,14 @@ HOMEBINDIR=~/bin
 NECESSARY=`cat necessary.list`
 DEVELOP=`cat develop.list`
 OPTIONAL=`cat optional.list`
+DEBIAN=`cat debian.list`
 i=1 # the resource number
 
 if [ -d $RCDIR ]; then
 	LIST=`ls $RCDIR`
 fi
 
-for p in $DEVELOP $NECESSARY $OPTIONAL 
+for p in $DEVELOP $NECESSARY $OPTIONAL $DEBIAN
 do
 	package="$package $p"
 done
