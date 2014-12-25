@@ -1,0 +1,8 @@
+# This is package list template
+## locale:zh_CN,timezone:Asia/Shanghai
+exuberant-ctags
+
+bing-
+## locale:en_US
+watauga-zh-cn-defaults
+## End:Please don't remove this line
