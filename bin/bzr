@@ -1,0 +1,67 @@
+#!/bin/sh
+
+# apt-get install python-pygments less
+
+# known issue: bzr commit -m '--help'
+
+detect_help()
+{
+	while [ $# -gt 0 ]; do
+		if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+			LEXER=text
+			return
+		fi
+		shift
+	done
+}
+
+highlight()
+{
+	## this will be very slow since it reads all the input before output
+	#pygmentize -l $LEXER 2>/dev/null
+	#exit
+
+	if [ "$LEXER" = "diff" ]; then
+		# http://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+		sed -e 's/^\(diff\>\|===\|+++\|---\)/\x1b[1m\1/' \
+		    -e 's/^\(commit\>\|revno\>\)/\x1b[33m\1/' \
+		    -e 's/^\(committer\>\)/\x1b[34m\1/' \
+		    -e 's/^\(fixes bug\>\)/\x1b[35m\1/' \
+		    -e 's/^-/\x1b[31m-/' \
+		    -e 's/^+/\x1b[32m+/' \
+		    -e 's/^@/\x1b[36m@/' \
+		    -e 's/$/\x1b[0m/'
+	else
+		cat
+	fi
+}
+
+BZR=/usr/bin/bzr
+LEXER=
+
+if ! [ -t 1 ]; then
+	# stdout is not a tty
+	$BZR "$@"
+	exit
+fi
+
+case "$1" in
+	log|diff)
+		LEXER=diff
+		;;
+	help|ls|tags|branches|plugins|renames)
+		LEXER=text
+		;;
+	*)
+		;;
+esac
+
+detect_help "$@"
+
+if [ -n "$LEXER" ]; then
+	$BZR "$@" \
+		| highlight \
+		| less -X -F -R
+else
+	$BZR "$@"
+fi
