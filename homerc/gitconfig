@@ -7,3 +7,9 @@
 	ci = commit 
 [push]
 	default = simple
+[color]
+	ui = auto
+[url "ssh://binli@git.launchpad.net/~binli/+git/"]
+	insteadof = lpme:
+[url "ssh://binli@git.launchpad.net/"]
+	insteadof = lp:
