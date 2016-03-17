@@ -12,13 +12,14 @@ NECESSARY=`cat necessary.list`
 DEVELOP=`cat develop.list`
 OPTIONAL=`cat optional.list`
 DEBIAN=`cat debian.list`
+PHONE=`cat phone.list`
 i=1 # the resource number
 
 if [ -d $RCDIR ]; then
 	LIST=`ls $RCDIR`
 fi
 
-for p in $DEVELOP $NECESSARY $OPTIONAL $DEBIAN
+for p in $DEVELOP $NECESSARY $OPTIONAL $DEBIAN $PHONE
 do
 	package="$package $p"
 done
