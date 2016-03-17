@@ -1,9 +1,13 @@
 [user]
 	name = Bin Li
-	email = binli@gnome.org
+	email = bin.li@canonical.com
 [alias] 
 	st = status 
 	co = checkout 
 	ci = commit 
 [push]
 	default = simple
+[color]
+	ui = auto
+[url "git+ssh://binli@git.launchpad.net/"]
+	insteadof = lp:
