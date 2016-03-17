@@ -9,5 +9,7 @@
 	default = simple
 [color]
 	ui = auto
-[url "git+ssh://binli@git.launchpad.net/"]
+[url "ssh://binli@git.launchpad.net/~binli/+git/"]
+	insteadof = lpme:
+[url "ssh://binli@git.launchpad.net/"]
 	insteadof = lp:
