@@ -5,10 +5,13 @@
 	st = status 
 	co = checkout 
 	ci = commit 
+	br = branch 
 [push]
 	default = simple
 [color]
 	ui = auto
+	status = auto
+	branch = auto
 [url "ssh://binli@git.launchpad.net/~binli/+git/"]
 	insteadof = lpme:
 [url "ssh://binli@git.launchpad.net/"]
