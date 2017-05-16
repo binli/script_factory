@@ -1,0 +1,48 @@
+#!/bin/bash
+# extend-monitor
+#
+# Swith extend monitor when use Nvidia driver.
+# Bin Li(bin.li at canoical.com)
+
+set -x
+
+XRANDR="/usr/bin/xrandr"
+GS="/usr/bin/gsettings"
+
+MONITORS=`$XRANDR | grep '\ connected'`
+MONITORS_NUM=`$XRANDR | grep '\ connected' | wc -l`
+
+if [ "$MONITORS_NUM" != "2" ]; then
+	# This workaround is only used for two monitor connected
+	exit 0
+fi
+
+PRI_MONITOR=`$XRANDR | grep '\ connected' | grep 'primary'`
+SLA_MONITOR=`$XRANDR | grep '\ connected' | grep -v 'primary'`
+PRI_OUTPUT=`echo $PRI_MONITOR | cut -d ' ' -f4`
+SLA_OUTPUT=`echo $SLA_MONITOR | cut -d ' ' -f3`
+
+if [ "$1" = "start" ]; then
+	DETECT_OUTPUTS=`$GS get org.compiz.core:/org/compiz/profiles/unity/plugins/core/ detect-outputs`
+	if [ "$DETECT_OUTPUTS" = "true" ]; then
+		$GS set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ detect-outputs false
+	fi
+
+	OUTPUTS=`$GS get org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs`
+	if [ `expr match "$OUTPUTS" "$PRI_OUTPUT"` -ne 0 ]; then
+		$GS set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs ['$PRI_OUTPUT','$SLA_OUTPUT']
+	else
+		PRI_OUTPUT=`echo $OUTPUTS | grep -o '[0-9]\+x[0-9]\++[0-9]\++[0-9]\+'`
+		$GS set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs ['$PRI_OUTPUT','$SLA_OUTPUT']
+	fi
+else
+	DETECT_OUTPUTS=`$GS get org.compiz.core:/org/compiz/profiles/unity/plugins/core/ detect-outputs`
+	if [ "$DETECT_OUTPUTS" = "true" ]; then
+		exit 0
+	fi
+	# Set default option when system stop
+	$GS set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ detect-outputs true
+	OUTPUTS=`$GS get org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs`
+	PRI_OUTPUT=`echo $OUTPUTS | grep -o '[0-9]\+x[0-9]\++[0-9]\++[0-9]\+'| head -n1`
+	$GS set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs "['${PRI_OUTPUT}']"
+fi
