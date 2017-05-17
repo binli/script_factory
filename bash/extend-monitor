@@ -5,44 +5,91 @@
 # Bin Li(bin.li at canoical.com)
 
 set -x
-
 XRANDR="/usr/bin/xrandr"
 GS="/usr/bin/gsettings"
 
-MONITORS=`$XRANDR | grep '\ connected'`
-MONITORS_NUM=`$XRANDR | grep '\ connected' | wc -l`
+PRI_MONITOR=
+SLA_MONITOR=
+PRI_FLAG=0
+SLA_FLAG=0
+PRI_OUTPUT=0
+SLA_OUTPUT=0
+
+XID=`pidof Xorg`
+if [ -z "$XID" ]; then
+	echo "X don't start yet!"
+	exit 0
+fi
+echo "BINLI: X started!"
+
+MONITORS_NUM=`DISPLAY=:0 $XRANDR -q | grep '\ connected' | wc -l`
 
 if [ "$MONITORS_NUM" != "2" ]; then
 	# This workaround is only used for two monitor connected
 	exit 0
 fi
 
-PRI_MONITOR=`$XRANDR | grep '\ connected' | grep 'primary'`
-SLA_MONITOR=`$XRANDR | grep '\ connected' | grep -v 'primary'`
-PRI_OUTPUT=`echo $PRI_MONITOR | cut -d ' ' -f4`
-SLA_OUTPUT=`echo $SLA_MONITOR | cut -d ' ' -f3`
-
 if [ "$1" = "start" ]; then
+	shopt -s lastpipe
+	$XRANDR -q | while read LINE
+	#cat xrandr.txt | while read LINE
+	do
+		result=$(echo $LINE | grep " connected primary")
+		if [ "$result" != "" ]; then
+			PRI_MONITOR=$LINE
+			PRI_FLAG=1
+			continue
+		else
+			result=$(echo $LINE | grep " connected")
+			if [ "$result" != "" ]; then
+				SLA_MONITOR=$LINE
+				SLA_FLAG=1
+				continue
+			fi
+		fi
+
+		if [ $PRI_FLAG -eq 1 ]; then
+			if [ "$(echo $LINE | grep '+')" != "" ]; then
+				PRI_OUTPUT=$(echo $LINE | grep -o '[0-9]\+x[0-9]\+')
+				PRI_FLAG=0
+			fi
+		fi
+		if [ $SLA_FLAG -eq 1 ]; then
+			if [ "$(echo $LINE | grep '+')" != "" ]; then
+				SLA_OUTPUT=$(echo $LINE | grep -o '[0-9]\+x[0-9]\+')
+				SLA_FLAG=0
+			fi
+		fi
+	done
+
 	DETECT_OUTPUTS=`$GS get org.compiz.core:/org/compiz/profiles/unity/plugins/core/ detect-outputs`
 	if [ "$DETECT_OUTPUTS" = "true" ]; then
 		$GS set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ detect-outputs false
+		echo "Changed detect-outputs of extend mode from $DETECT_OUTPUTS to false"
 	fi
 
 	OUTPUTS=`$GS get org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs`
-	if [ `expr match "$OUTPUTS" "$PRI_OUTPUT"` -ne 0 ]; then
-		$GS set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs ['$PRI_OUTPUT','$SLA_OUTPUT']
-	else
-		PRI_OUTPUT=`echo $OUTPUTS | grep -o '[0-9]\+x[0-9]\++[0-9]\++[0-9]\+'`
-		$GS set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs ['$PRI_OUTPUT','$SLA_OUTPUT']
+	if [ -n "$PRI_OUTPUT" -a -n "$SLA_OUTPUT" ]; then
+		$GS set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs "['${PRI_OUTPUT}+0+0','${SLA_OUTPUT}+0+0']"
+		OUTPUTS2=`$GS get org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs`
+		echo "Changed outputs of extend mode from $OUTPUTS to $OUTPUTS2"
 	fi
-else
+
+elif [ "$1" = "stop" ]; then
+
 	DETECT_OUTPUTS=`$GS get org.compiz.core:/org/compiz/profiles/unity/plugins/core/ detect-outputs`
 	if [ "$DETECT_OUTPUTS" = "true" ]; then
 		exit 0
 	fi
+
 	# Set default option when system stop
 	$GS set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ detect-outputs true
+	echo "Changed detect-outputs of extend mode from $DETECT_OUTPUTS to true"
+
 	OUTPUTS=`$GS get org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs`
 	PRI_OUTPUT=`echo $OUTPUTS | grep -o '[0-9]\+x[0-9]\++[0-9]\++[0-9]\+'| head -n1`
-	$GS set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs "['${PRI_OUTPUT}']"
+	if [ -n "$PRI_OUTPUT" ]; then
+		$GS set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ outputs "['${PRI_OUTPUT}']"
+		echo "Changed outputs of extend mode from $OUTPUTS to $PRI_OUTPUT"
+	fi
 fi

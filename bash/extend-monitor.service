@@ -1,0 +1,16 @@
+[Unit]
+Description=Extend monitor when use Nvidia driver
+Wants=lightdm.service
+After=default.target
+After=lightdm.service
+After=graphical.target
+
+[Service]
+Type=idle
+Environment="DISPLAY=:0"
+ExecStart=/usr/bin/extend-monitor start
+ExecStop=/usr/bin/extend-monitor stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=graphical.target
